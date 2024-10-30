@@ -8,7 +8,7 @@ import {
   removeProduct,
   setProducts,
   updateProduct,
-  setSortedProducts, 
+  setSortedProducts,
 } from "../../../store";
 import Modal from "../Modal/Modal";
 import {
@@ -22,15 +22,17 @@ const ProductList = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const dispatch = useDispatch();
-  const sortedProducts = useSelector((state: any) => state.products.sortedProducts); 
-  const [isAscending, setIsAscending] = useState(true); 
+  const sortedProducts = useSelector(
+    (state: any) => state.products.sortedProducts
+  );
+  const [isAscending, setIsAscending] = useState(true);
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
         const productsData = await fetchProducts();
         dispatch(setProducts(productsData));
-        dispatch(setSortedProducts(productsData)); 
+        dispatch(setSortedProducts(productsData));
       } catch (error) {
         console.error("Error loading products:", error);
       }
@@ -70,12 +72,12 @@ const ProductList = () => {
 
   const sortProductsAlphabetically = () => {
     const sorted = [...sortedProducts].sort((a, b) => {
-      return isAscending 
-        ? a.name.localeCompare(b.name) 
-        : b.name.localeCompare(a.name); 
+      return isAscending
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name);
     });
-    dispatch(setSortedProducts(sorted)); 
-    setIsAscending(!isAscending); 
+    dispatch(setSortedProducts(sorted));
+    setIsAscending(!isAscending);
   };
 
   return (
