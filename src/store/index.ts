@@ -4,6 +4,7 @@ import { Comment } from "../types/comment";
 
 const initialState = {
   products: [] as Product[],
+  sortedProducts: [] as Product[],
   comments: [] as Comment[],
 };
 
@@ -13,12 +14,20 @@ const productSlice = createSlice({
   reducers: {
     setProducts: (state, action) => {
       state.products = action.payload;
+      state.sortedProducts = action.payload;
+    },
+    setSortedProducts: (state, action) => {
+      state.sortedProducts = action.payload;
     },
     addProduct: (state, action) => {
       state.products.push(action.payload);
+      state.sortedProducts.push(action.payload);
     },
     removeProduct: (state, action) => {
       state.products = state.products.filter(
+        (product) => product.id !== action.payload
+      );
+      state.sortedProducts = state.sortedProducts.filter(
         (product) => product.id !== action.payload
       );
     },
@@ -28,13 +37,25 @@ const productSlice = createSlice({
       );
       if (index !== -1) {
         state.products[index] = action.payload;
+
+        const sortedIndex = state.sortedProducts.findIndex(
+          (product) => product.id === action.payload.id
+        );
+        if (sortedIndex !== -1) {
+          state.sortedProducts[sortedIndex] = action.payload;
+        }
       }
     },
   },
 });
 
-export const { setProducts, addProduct, removeProduct, updateProduct } =
-  productSlice.actions;
+export const {
+  setProducts,
+  setSortedProducts,
+  addProduct,
+  removeProduct,
+  updateProduct,
+} = productSlice.actions;
 
 const store = configureStore({
   reducer: {

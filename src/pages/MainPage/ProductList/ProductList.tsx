@@ -8,6 +8,7 @@ import {
   removeProduct,
   setProducts,
   updateProduct,
+  setSortedProducts, 
 } from "../../../store";
 import Modal from "../Modal/Modal";
 import {
@@ -20,16 +21,14 @@ import {
 const ProductList = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
-
   const dispatch = useDispatch();
-  const products = useSelector((state: any) => state.products.products);
+  const sortedProducts = useSelector((state: any) => state.products.sortedProducts); 
 
   useEffect(() => {
     const loadProducts = async () => {
       const productsData = await fetchProducts();
       dispatch(setProducts(productsData));
-      setSortedProducts(productsData); // Зберігаємо отримані продукти
+      dispatch(setSortedProducts(productsData)); 
     };
 
     loadProducts();
@@ -56,7 +55,7 @@ const ProductList = () => {
     const sorted = [...sortedProducts].sort((a, b) =>
       a.name.localeCompare(b.name)
     );
-    setSortedProducts(sorted);
+    dispatch(setSortedProducts(sorted)); 
   };
 
   return (
@@ -77,7 +76,6 @@ const ProductList = () => {
         </button>
       </div>
 
-      {/* Новий блок для продуктів */}
       <div className="product-container">
         {sortedProducts.map((product: Product) => (
           <ProductCard
