@@ -8,7 +8,7 @@ import {
   removeProduct,
   setProducts,
   updateProduct,
-  setSortedProducts, 
+  setSortedProducts,
 } from "../../../store";
 import Modal from "../Modal/Modal";
 import {
@@ -22,40 +22,58 @@ const ProductList = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const dispatch = useDispatch();
-  const sortedProducts = useSelector((state: any) => state.products.sortedProducts); 
+  const sortedProducts = useSelector(
+    (state: any) => state.products.sortedProducts
+  );
 
   useEffect(() => {
     const loadProducts = async () => {
-      const productsData = await fetchProducts();
-      dispatch(setProducts(productsData));
-      dispatch(setSortedProducts(productsData)); 
+      try {
+        const productsData = await fetchProducts();
+        dispatch(setProducts(productsData));
+        dispatch(setSortedProducts(productsData));
+      } catch (error) {
+        console.error("Error loading products:", error);
+      }
     };
 
     loadProducts();
   }, [dispatch]);
 
   const handleAddProduct = async (product: Product) => {
-    const newProduct = await addProductToAPI(product);
-    dispatch(addProduct(newProduct));
-    setSelectedProduct(null);
+    try {
+      const newProduct = await addProductToAPI(product);
+      dispatch(addProduct(newProduct));
+      setSelectedProduct(null);
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
   };
 
   const handleEditProduct = async (updatedProduct: Product) => {
-    const product = await updateProductInAPI(updatedProduct);
-    dispatch(updateProduct(product));
+    try {
+      const product = await updateProductInAPI(updatedProduct);
+      dispatch(updateProduct(product));
+    } catch (error) {
+      console.error("Error updating product:", error);
+    }
   };
 
   const handleDeleteProduct = async (id: number) => {
-    await deleteProductFromAPI(id);
-    dispatch(removeProduct(id));
-    setSelectedProduct(null);
+    try {
+      await deleteProductFromAPI(id);
+      dispatch(removeProduct(id));
+      setSelectedProduct(null);
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
   };
 
   const sortProductsAlphabetically = () => {
     const sorted = [...sortedProducts].sort((a, b) =>
       a.name.localeCompare(b.name)
     );
-    dispatch(setSortedProducts(sorted)); 
+    dispatch(setSortedProducts(sorted));
   };
 
   return (
