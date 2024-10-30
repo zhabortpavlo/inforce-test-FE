@@ -1,0 +1,48 @@
+{
+  "products": [
+    {
+      "id": "1730292238239",
+      "name": "MacBook Pro",
+      "count": 3,
+      "imageUrl": "https://cdn1.it4profit.com/AfrOrF3gWeDA6VOlDG4TzxMv39O7MXnF4CXpKUwGqRM/resize:fill:540/bg:f6f6f6/q:100/plain/s3://catalog-products/220822135724728569/220831140016734479.png@webp",
+      "weight": "2 kg",
+      "size": {
+        "width": 1200,
+        "height": 45
+      },
+      "comments": []
+    },
+    {
+      "id": "1730292399100",
+      "name": "Converse All Star",
+      "count": 6,
+      "imageUrl": "https://converse.org.ua/image/cache/catalog/easyfoto/516/kedy-converse-chuck-70-hi-black-162050c-6-1200x1200.jpg",
+      "weight": "400g",
+      "size": {
+        "width": 463,
+        "height": 203
+      },
+      "comments": []
+    },
+    {
+      "id": "1730294046252",
+      "name": "Cyberpunk 2077 (PS5)",
+      "count": 12,
+      "imageUrl": "https://cdn.comfy.ua/media/catalog/product/6/5/65607bb12caee_5902367641870.jpg",
+      "weight": "50g",
+      "size": {
+        "width": 100,
+        "height": 200
+      },
+      "comments": []
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "productId": 1,
+      "description": "Great product!",
+      "date": "14:00 22.08.2021"
+    }
+  ]
+}
